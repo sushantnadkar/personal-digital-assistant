@@ -1,7 +1,8 @@
 import sys
 import yaml
-import speech_recognition as sr 
+import speech_recognition as sr
 
+from brain import brain
 from speech.tts import speak
 
 
@@ -21,13 +22,13 @@ def main():
 		audio = r.listen(source)
 
 	try:
-		speech_text = r.recognize_sphinx(audio).lower().replace("'", "")
-		print("Sphinx thinks you said " + speech_text)
+		speech_text = r.recognize_google(audio).lower().replace("'", "")
+		print("Google thinks you said: " + speech_text)
 	except sr.UnknownValueError:
-		print("Sphinx could not understand audio")
+		print("Google could not understand audio")
 	except sr.RequestError as e:
-		print("Sphinx error; {0}".format(e))
+		print("Google error; {0}".format(e))
 
-	speak(speech_text)
+	brain(name, speech_text)
 
 main()
