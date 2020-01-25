@@ -10,9 +10,6 @@ profile = open("profile.yaml")
 profile_data = yaml.safe_load(profile)
 profile.close()
 
-name = profile_data["name"]
-location = profile_data["location"]
-
 speak("Welcome" + name + ", systems are now ready to run. How may i help you?")
 
 def main():
@@ -29,6 +26,6 @@ def main():
 	except sr.RequestError as e:
 		print("Google error; {0}".format(e))
 
-	brain(name, speech_text)
+	brain(speech_text, **kwargs)
 
 main()

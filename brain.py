@@ -1,6 +1,6 @@
 from modules import general_conversation, tell_time
 
-def brain(name, speech_text):
+def brain(speech_text, **profile_data):
 	def check_message(check):
 		"""
 		This function checks if the items in the list (specified in the arguments) are present in the user's input speech.
@@ -19,7 +19,7 @@ def brain(name, speech_text):
 	elif check_message(["tell", "joke"]):
 		general_conversation.tell_joke()
 	elif check_message(["who", "am", "i"]):
-		general_conversation.who_am_i()
+		general_conversation.who_am_i(profile_data["name"])
 	elif check_message(["where", "born"]):
 		general_conversation.where_born()
 	elif check_message(["how", "are", "you"]):
