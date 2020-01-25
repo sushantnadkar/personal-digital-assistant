@@ -1,4 +1,6 @@
 name:
-	Sushant
+  Sushant
 location:
-	Kalyan
+  Kalyan
+api:
+  openweather_key: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx

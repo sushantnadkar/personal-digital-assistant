@@ -1,4 +1,4 @@
-from modules import general_conversation, tell_time
+from modules import general_conversation, tell_time, openweather
 
 def brain(speech_text, **profile_data):
 	def check_message(check):
@@ -26,5 +26,7 @@ def brain(speech_text, **profile_data):
 		general_conversation.how_are_you()
 	elif check_message(["what", "time"]) or check_message(["whats", "time"]):
 		tell_time.what_is_time()
+	elif check_message(["what", "weather"]) or check_message(["whats", "weather"]) or check_message(["how", "weather"]) or check_message(["hows", "weather"]):
+		openweather.what_weather(profile_data["location"], profile_data["api"]["openweather_key"])
 	else:
 		general_conversation.undefined()
