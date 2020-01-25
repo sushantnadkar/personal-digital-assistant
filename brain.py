@@ -24,7 +24,7 @@ def brain(speech_text, **profile_data):
 		general_conversation.where_born()
 	elif check_message(["how", "are", "you"]):
 		general_conversation.how_are_you()
-	elif check_message(["what", "time"]):
+	elif check_message(["what", "time"]) or check_message(["whats", "time"]):
 		tell_time.what_is_time()
 	else:
 		general_conversation.undefined()
