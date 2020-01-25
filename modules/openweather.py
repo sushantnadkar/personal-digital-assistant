@@ -10,6 +10,6 @@ def what_weather(city, key):
 	url = base_url + "appid=" + key + "&q=" + city
 	weather_data = requests.get(url).json()
 
-	reply = "OpenWeather says: It is " + weather_data["weather"][0]["description"] + " and " + str(float(weather_data["main"]["temp"]) - float(273.15)) + " degree celcius now in " + city
+	reply = "OpenWeather says: It is " + weather_data["weather"][0]["description"] + " and " + str(int(float(weather_data["main"]["temp"]) - float(273.15))) + " degree celcius now in " + city
 	print(reply)
 	speak(reply)
