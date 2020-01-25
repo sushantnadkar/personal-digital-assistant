@@ -3,4 +3,6 @@ from speech.tts import speak
 
 
 def what_is_time():
-	speak("The time is" + datetime.strftime(datetime.now(), "%H:%M"))
+	reply = "The time is" + datetime.strftime(datetime.now(), "%H:%M")
+	print(reply)
+	speak(reply)
