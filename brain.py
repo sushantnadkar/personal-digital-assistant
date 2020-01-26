@@ -29,6 +29,6 @@ def brain(speech_text, **profile_data):
 	elif check_message(["what", "weather"]) or check_message(["whats", "weather"]) or check_message(["how", "weather"]) or check_message(["hows", "weather"]):
 		openweather.what_weather(profile_data["location"], profile_data["api"]["openweather_key"])
 	elif check_message(["define"]):
-		wiki.define(speech_text)
+		wiki.define(speech_text, profile_data["is_cli"])
 	else:
 		general_conversation.undefined()

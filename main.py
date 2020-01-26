@@ -20,10 +20,12 @@ def main():
 	args = parser.parse_args()
 
 	if args.text:
+		profile_data["is_cli"] = "true"
 		speech_text = args.text
 		print("Your input: " + speech_text)
 		brain(speech_text, **profile_data)
 	else:
+		profile_data["is_cli"] = "false"
 		speech_text = to_text()
 		brain(speech_text, **profile_data)
 

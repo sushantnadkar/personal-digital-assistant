@@ -10,6 +10,7 @@ from nltk.stem import WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from speech.tts import speak
+from listen.stt import to_text
 
 warnings.filterwarnings('ignore')
 
@@ -20,7 +21,7 @@ nltk.download('popular', quiet=True)
 # nltk.download('wordnet') # first-time use only
 
 
-def define(subject):
+def define(subject, cli):
 	words = subject.split()
 	words.remove("define")
 	subject = " ".join(words)
@@ -37,19 +38,24 @@ def define(subject):
 		wiki_data = wiki_data.replace("'", "")
 		print("Defination of " + subject + ":\n" + wiki_data)
 		speak(wiki_data)
-		print("Do you have any more question? (yes/NO)")
-		reply = input().lower()
-		if reply == "yes" or reply == "y":
-			init_chat(subject)
+		print("Do you have any more question? (y/N)")
+		speak("Do you have any more question?")
+		if cli == "true":
+			reply = input().lower()
+		else:
+			reply = to_text()
+		set(["yes"]).issubset(set(reply.split()))
+		if set(["yes"]).issubset(set(reply.split())) or set(["sure"]).issubset(set(reply.split())) or reply == "y":
+			init_chat(subject, cli)
 
 	except wikipedia.exceptions.DisambiguationError as e:
 		print("Can you please be more specific? You may choose from the following: {0}".format(e))
 		speak("Can you please be more specific?")
 
 
-def init_chat(subject):
+def init_chat(subject, cli):
 
-	raw = wikipedia.page(subject).content.replace("\n", " ")
+	raw = wikipedia.page(subject).content.replace("'", "").replace("\n", " ").replace("=", "")
 
 	#TOkenisation
 	sent_tokens = nltk.sent_tokenize(raw)# converts to list of sentences
@@ -96,22 +102,33 @@ def init_chat(subject):
 	def chat(subject):
 		flag=True
 		print("> What more queries do you have about " + subject + "?. If you want to exit, type Bye!")
+		speak("What more queries do you have about " + subject + "?. If you want to exit, say Bye!")
 
 		while(flag==True):
-			user_response = input()
-			user_response=user_response.lower()
+			if cli == "true":
+				user_response = input()
+				user_response=user_response.lower()
+			else:
+				user_response = to_text()
+
 			if(user_response!='bye'):
 				if(user_response=='thanks' or user_response=='thank you' ):
 					flag=False
 					print("> You are welcome..")
+					speak("You are welcome.")
 				else:
 					if(greeting(user_response)!=None):
-						print("> "+greeting(user_response))
+						reply_text = greeting(user_response)
+						print("> " + reply_text)
+						speak(reply_text)
 					else:
+						reply_text = response(user_response)
 						print("> ",end="")
-						print(response(user_response))
+						print(reply_text)
+						speak(reply_text)
 						sent_tokens.remove(user_response)
 			else:
 				flag=False
 				print("> Bye! take care..")
+				speak("Bye! take care.")
 	chat(subject)
