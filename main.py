@@ -1,8 +1,8 @@
 import sys
 import yaml
 import argparse
-import speech_recognition as sr
 
+from listen.stt import to_text
 from brain import brain
 from speech.tts import speak
 
@@ -21,20 +21,10 @@ def main():
 
 	if args.text:
 		speech_text = args.text
+		print("Your input: " + speech_text)
+		brain(speech_text, **profile_data)
 	else:
-		r = sr.Recognizer()
-		with sr.Microphone() as source:
-			print("Say something!")
-			audio = r.listen(source)
-
-		try:
-			speech_text = r.recognize_google(audio).lower().replace("'", "")
-			print("Google thinks you said: " + speech_text)
-		except sr.UnknownValueError:
-			print("Google could not understand audio")
-		except sr.RequestError as e:
-			print("Google error; {0}".format(e))
-
-	brain(speech_text, **profile_data)
+		speech_text = to_text()
+		brain(speech_text, **profile_data)
 
 main()
