@@ -7,13 +7,13 @@ from brain import brain
 from speech.tts import speak
 
 
-profile = open("profile.yaml")
-profile_data = yaml.safe_load(profile)
-profile.close()
-
-speak("Welcome" + profile_data["name"] + ", systems are now ready to run. How may i help you?")
-
 def main():
+
+	profile = open("profile.yaml")
+	profile_data = yaml.safe_load(profile)
+	profile.close()
+
+	speak("Welcome" + profile_data["name"] + ", systems are now ready to run. How may i help you?")
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-t", "--text", help="Provide text input instade of speech input using microphone.")
@@ -29,4 +29,5 @@ def main():
 		speech_text = to_text()
 		brain(speech_text, **profile_data)
 
-main()
+if __name__ == "__main__":
+	main()

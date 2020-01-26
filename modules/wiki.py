@@ -83,7 +83,7 @@ def init_chat(subject, cli):
 
 	# Generating response
 	def response(user_response):
-		robo_response=''
+		chat_response=''
 		sent_tokens.append(user_response)
 		TfidfVec = TfidfVectorizer(tokenizer=LemNormalize, stop_words='english')
 		tfidf = TfidfVec.fit_transform(sent_tokens)
@@ -93,11 +93,11 @@ def init_chat(subject, cli):
 		flat.sort()
 		req_tfidf = flat[-2]
 		if(req_tfidf==0):
-			robo_response=robo_response+"Sorry! I don't understand you"
-			return robo_response
+			chat_response=chat_response+"Sorry! I don't understand you"
+			return chat_response
 		else:
-			robo_response = robo_response+sent_tokens[idx]
-			return robo_response
+			chat_response = chat_response+sent_tokens[idx]
+			return chat_response
 
 	def chat(subject):
 		flag=True
