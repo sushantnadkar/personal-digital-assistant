@@ -1,3 +1,4 @@
 *.pyc
 profile.yaml
 .vscode
+.DS_Store
