@@ -3,7 +3,7 @@ import yaml
 import argparse
 
 from listen.stt import to_text
-from brain import brain
+from modules.logic import brain
 from speech.tts import speak
 
 
