@@ -6,7 +6,7 @@ idna==2.8
 numpy==1.18.1
 pocketsphinx==0.1.15
 PyAudio==0.2.11
-PyYAML==5.3
+PyYAML==5.4
 requests==2.22.0
 soupsieve==1.9.5
 SpeechRecognition==3.8.1
